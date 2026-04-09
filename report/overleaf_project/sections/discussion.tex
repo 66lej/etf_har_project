@@ -1,0 +1,31 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Interpretation}
+
+The evidence does not support the claim that ETF information is a strong standalone forecasting signal. The stock's own HAR history remains the dominant source of predictive content. At the same time, the results do not justify treating ETF information as irrelevant. It adds value most clearly when it is used to validate, adjust, or selectively suppress the stock-only signal.
+
+The most defensible interpretation is that ETF-linked information has limited incremental content when entered directly, but remains useful when introduced through narrower and more disciplined specifications. Raw ETF expansion performs poorly, whereas Top-1 / Top-3 summaries and related filtering rules improve economic performance. The appropriate conclusion is therefore not ``ETF beats the baseline,'' but ``ETF can refine the baseline under a more selective design.'' The correct comparison is against a baseline that is itself given a reasonable implementation rule, and under that benchmark the ETF-conditioned strategies are best described as competitive, interpretable refinements.
+
+\subsection{Methodological Novelty}
+
+The novelty of the project is not a single new estimator. Instead, it lies in the combination of design choices:
+\begin{itemize}[leftmargin=1.4em]
+  \item a rolling-universe window-slicing setup rather than a fixed long-horizon panel,
+  \item the shift from statistical significance to economic significance,
+  \item the use of ETF-linked information as conditional information rather than as a raw feature block,
+  \item the explicit turnover-aware execution layer,
+  \item and the liquidity-state diagnostic based on normalized dollar volume.
+\end{itemize}
+
+In that sense, the project adds something beyond a standard forecasting exercise: the contribution lies in how ETF-linked information is represented, filtered, and translated into a tradable signal.
+
+\subsection{Relation to the Original Network Idea}
+
+It is also important to be transparent about the network component. The original project motivation was strongly connected to peer effects and ETF-based network structure. That idea remains conceptually useful and informed the way we think about ETF-linked similarity. However, the pure network-style model did not emerge as the strongest final implementation. That should be presented as a substantive empirical finding: the network intuition helped motivate the exploration, but the strongest economic results came from narrower ETF-conditioned adjustments rather than from the network term alone.
+
+\subsection{Limitations}
+
+Several limitations remain. First, the network formulation did not emerge as the strongest final strategy, even though it was part of the original motivation. Second, the cost model is deliberately simple and should be interpreted as a stress-test device rather than a full execution simulator. Third, the final report should be careful not to overclaim generality from a specific U.S. equities sample and a specific ETF feature universe.
+
+These limitations do not invalidate the project, but they should shape the tone of the final write-up. The right claim is that ETF-linked information can become economically useful under a more selective representation and explicit execution controls, not that it universally dominates simpler baselines. Framed this way, the report contributes a disciplined empirical answer to a narrower and more realistic question: how should cross-asset information be organized so that it has a chance to survive implementation?

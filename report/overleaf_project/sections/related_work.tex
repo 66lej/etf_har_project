@@ -1,0 +1,18 @@
+\section{Related Work}
+\label{sec:related}
+
+This project is related to three strands of literature.
+
+\subsection{Cross-Sectional Return Prediction}
+
+The first strand studies cross-sectional return prediction using characteristics, factors, and statistical learning methods. Classic asset-pricing work emphasizes the difficulty of explaining and forecasting the cross section of expected returns \citep{fama1992cross}. More recent machine-learning work shows that flexible predictive models can extract useful information from large panels of return predictors, but also makes clear that overfitting, instability, and implementation concerns remain central \citep{gu2020empirical}. Our project belongs to this tradition, but differs in focus: rather than expanding the predictor set as much as possible, we study whether ETF-linked information is more useful when it is represented parsimoniously and evaluated in economic terms.
+
+\subsection{Economically Linked Securities and Network Ideas}
+
+The second strand studies return comovement and predictability across economically linked securities. Work such as \citet{cohen2008economic} shows that return information can propagate across linked firms, while network-based asset-pricing papers such as \citet{ahern2013network} highlight the role of relationship structure in the cross section. Our original motivation is closest to this line of thinking. However, the empirical outcome of the project is more nuanced than a simple network-success story. The ETF-based network intuition remains useful as a way to think about relatedness and peer structure, but the final strongest implementations come from low-dimensional ETF-conditioned correction signals rather than from the network term alone.
+
+\subsection{Economic Significance, Trading Costs, and Implementation}
+
+The third strand emphasizes that predictive signals should be judged by economic usefulness rather than by statistical fit alone. In practice, turnover, market impact, and trading costs can materially alter the ranking of otherwise attractive signals \citep{frazzini2018trading,novymarx2016taxonomy}. Our project is directly aligned with this perspective. The move from negative out-of-sample $R^2$ toward PnL, AlphaMark, and explicit execution constraints therefore reflects a change in the object of interest: not simply prediction accuracy, but whether a signal survives implementation frictions.
+
+Relative to these literatures, our contribution is modest but distinct. We do not propose a new general-purpose estimator. Instead, we show that ETF-linked information, while ineffective as a large raw block, can still matter when converted into stock-specific low-dimensional signals and evaluated under a rolling-universe framework with explicit execution constraints.

@@ -1,0 +1,10 @@
+{
+  "quantiles": [1.0],
+  "qranks": ["qr_100"],
+  "H2_targets": ["fret_1_MR"],
+  "H3_targets": ["fret_1_MR"],
+  "H2_bets": ["betsize_cap250k", "betsize_mktcap_lag"],
+  "H3_bets": ["betsize_cap250k", "betsize_mktcap_lag"],
+  "interval_start": "2006-01-03",
+  "interval_end": "2023-12-29"
+}

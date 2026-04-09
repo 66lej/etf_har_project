@@ -1,0 +1,57 @@
+\section{Final Strategy Design}
+\label{sec:strategy}
+
+The final report focuses on three ETF-conditioned strategies. All three start from the same stock-only baseline, but they use ETF-linked information in different ways. They emerge from the same empirical pattern: direct ETF expansion and the pure network term do not deliver strong final strategies, whereas narrower ETF-based adjustments remain useful.
+
+\subsection{Consensus Majority ETF}
+
+This signal combines three forecasts: the baseline, the baseline plus the top-1 ETF daily term, and the baseline plus the top-3 ETF daily mean. A stock is traded only when at least two of the three forecasts agree on direction. In shorthand,
+\[
+s^{\mathrm{cons}}_{i,t}
+=
+\mathrm{MajorityVote}
+\left(
+s^{\mathrm{base}}_{i,t},
+s^{\mathrm{top1}}_{i,t},
+s^{\mathrm{top3}}_{i,t}
+\right).
+\]
+
+Operationally, the signal is zero when there is no majority agreement, positive when at least two forecasts point up, and negative when at least two point down. The specification retained in the final evaluation uses lagged market-cap sizing, full-universe coverage ($q=1.0$), a 20-day minimum holding period, and a rebalance threshold of 0.3. The economic interpretation is that ETF information is most valuable when it corroborates, rather than overrides, the stock-only forecast.
+
+\subsection{Regime Strategy}
+
+We define a blended signal
+\[
+s^{\mathrm{blend}}_{i,t} = 0.7\, s^{\mathrm{base}}_{i,t} + 0.3\, s^{\mathrm{top3}}_{i,t}.
+\]
+When the market environment is strong, proxied by positive short-horizon SPY signals, we use the baseline. Outside that regime, we require agreement between the baseline and the ETF-conditioned top-3 signal; otherwise the trade is suppressed. In shorthand,
+\[
+s^{\mathrm{reg}}_{i,t}
+=
+\begin{cases}
+s^{\mathrm{base}}_{i,t}, & \text{if the market regime is strong},\\
+s^{\mathrm{blend}}_{i,t}, & \text{if the regime is weak and } \mathrm{sign}(s^{\mathrm{base}}_{i,t})=\mathrm{sign}(s^{\mathrm{top3}}_{i,t}),\\
+0, & \text{otherwise.}
+\end{cases}
+\]
+This makes ETF information contingent on market state rather than universally active. The most robust implementation uses equal weighting, full-universe coverage, a 20-day holding period, and a rebalance threshold of 0.1.
+
+\subsection{Blend Top3}
+
+This is the most conservative design. It simply uses the soft combination
+\[
+s^{\mathrm{blend}}_{i,t} = 0.7\, s^{\mathrm{base}}_{i,t} + 0.3\, s^{\mathrm{top3}}_{i,t}.
+\]
+The goal is not to let ETF information dominate, but to allow it to make a modest adjustment to the baseline. In the final cost-adjusted evaluation, the strongest stable version uses full-universe coverage and slower rebalancing, with the exact best sizing choice depending somewhat on the assumed cost level. Conceptually, this is the simplest specification: the stock-only signal remains primary, and ETF information tilts the ranking at the margin.
+
+\subsection{Why These Three}
+
+These strategies were selected because they remained competitive after exploratory screening, implementation constraints, AlphaMark evaluation, and transaction-cost sensitivity analysis. They also span three distinct uses of ETF-linked information:
+\begin{itemize}[leftmargin=1.4em]
+  \item \textbf{confirmation}: consensus majority ETF,
+  \item \textbf{conditioning}: regime strategy,
+  \item \textbf{correction}: blend top3.
+\end{itemize}
+
+Together they support a common interpretation: ETF-linked information is not strong enough to drive the model on its own, but it can improve the baseline when introduced in a narrower and more disciplined form.

@@ -1,0 +1,7 @@
+\section{Conclusion}
+
+This project began with a simple idea: augment stock-level daily return prediction with ETF-linked information. The first pass showed that this idea does not work well in a naive form. Large raw ETF feature blocks perform poorly, and statistical forecasting metrics alone do not capture whether the resulting signals are economically useful.
+
+The final outcome is more nuanced. ETF-linked information does not replace the stock-only HAR baseline, and it does not uniformly dominate an optimized baseline benchmark. What it can do is refine that benchmark. Once the information is summarized through stock-specific signals and combined with rolling-universe training, explicit execution rules, and PnL-based evaluation, it becomes economically meaningful. In this sense, the project's contribution is less about discovering a strong new standalone predictor and more about showing how cross-asset information can be organized into a tradable signal.
+
+Among the final strategies, consensus-majority ETF, regime-dependent refinement, and blend top3 each capture a different way in which ETF-linked information can improve the baseline. Taken together, they support a broader conclusion: in noisy financial prediction settings, the main challenge is not only learning a signal, but also deciding how to represent it, when to trust it, and how to trade it. This is why the report emphasizes methodology, economic evaluation, and execution discipline alongside predictive modeling.

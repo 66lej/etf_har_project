@@ -1,0 +1,18 @@
+\section{Introduction}
+
+Predicting daily stock returns is difficult because the signal-to-noise ratio is low and many seemingly informative covariates degrade out-of-sample performance once estimation error, instability, and turnover are taken into account. In this project, we study whether ETF-linked information can improve stock-level daily return forecasting in U.S. equities.
+
+The original motivation was straightforward. A stock's own past returns may miss broader cross-asset information visible in sector and macro ETF movements. In practice, however, raw ETF expansion performs poorly out of sample and does not translate into convincing economic value. The relevant question is therefore not whether ETF information can replace the stock-only baseline, but whether it can improve that baseline when introduced through a more selective design.
+
+Accordingly, the analysis emphasizes portfolio PnL, AlphaMark diagnostics, and transaction-cost stress tests rather than mean squared error or out-of-sample $R^2$ alone. Methodologically, we also replace a fixed long-horizon stock panel with a rolling-universe, window-sliced design that better matches the available data and reduces survivorship-style distortions. In spirit, the project is related to HAR-style forecasting and empirical asset pricing with machine learning \citep{corsi2009simple,gu2020empirical}, but the emphasis here is not on proposing a new generic estimator. The central issue is how ETF-linked information should be represented and traded.
+
+The main empirical message is that raw ETF information is not effective as a standalone predictor, but the relatedness structure between stocks and ETFs still contains useful directional content. Once that information is summarized through stock-specific signals and combined with explicit holding-period and rebalance rules, it becomes economically relevant. The final strategies are therefore not ``ETF replaces baseline'' models, but ETF-conditioned extensions of a stock-only HAR baseline. Importantly, the appropriate benchmark is not the raw baseline alone, but an optimized baseline with similarly disciplined execution. The strongest ETF-conditioned strategies are best interpreted as competitive refinements to that benchmark rather than as universal replacements for it.
+
+Our main contributions are the following:
+\begin{enumerate}[leftmargin=1.4em]
+  \item We implement a rolling-universe, window-sliced forecasting pipeline for U.S. equities with a 10-year training window and a 1-year test window, allowing model-specific eligibility and time-varying coverage.
+  \item We show that direct raw ETF expansion performs poorly, while stock-specific ETF summaries remain useful when introduced through confirmation, adjustment, and regime-dependent rules.
+  \item We evaluate the signals in economic rather than purely statistical terms, using AlphaMark, explicit turnover-based cost stress tests, and a normalized-dollar-volume diagnostic to study liquidity dependence.
+\end{enumerate}
+
+The rest of the report is organized as follows. Section~\ref{sec:data} describes the data and problem setup. Section~\ref{sec:methodology} presents the rolling-universe forecasting and execution framework. Section~\ref{sec:strategy} describes the final signal designs. Section~\ref{sec:results} reports the main economic results. Section~\ref{sec:discussion} discusses interpretation, novelty, and limitations.

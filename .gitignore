@@ -1,0 +1,34 @@
+.DS_Store
+
+# Large local data and generated artifacts
+data/
+output/
+outputs/
+tmp/
+
+# Share bundles / archives
+*.zip
+
+# Local aliases and macOS artifacts
+*替身
+
+# Notebook checkpoints
+notebooks/.ipynb_checkpoints/
+notebooks/Untitled.ipynb
+*.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# External / vendored AlphaMark copy and local outputs
+alpha/.DS_Store
+alpha/alphamark_public/
+alpha/*.pdf
+
+# Local report bundle
+report/overleaf_project.zip
+
+# Misc local files not useful for the public repo
+results/
+requirements/

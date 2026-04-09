@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\setstretch{1.08}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+\raggedbottom
+
+\title{From Noisy ETF Features to Low-Turnover Alpha:\\
+Rolling-Universe Evidence from U.S. Equities}
+
+\author{
+  Jingze Fu \\
+  UCLA \\
+  \texttt{fujingze1019@g.ucla.edu}
+  \and
+  [Coauthor Name] \\
+  UCLA \\
+  \texttt{[coauthor email]}
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/data_problem_setup}
+\input{sections/methodology}
+\input{sections/strategy_design}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\appendix
+\input{sections/appendix_implementation}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

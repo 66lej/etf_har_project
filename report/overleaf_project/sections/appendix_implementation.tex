@@ -1,0 +1,43 @@
+\section{Implementation Notes and Reproducibility}
+\label{sec:appendix-impl}
+
+\subsection{Rolling Window Schedule}
+
+The final evaluation period is 2006--2023. We use 18 annual test slices, each paired with a 10-year training window. For a test year $Y$, the training sample uses the preceding ten calendar years. For example, the first reported slice trains on 1996--2005 and tests on 2006, while the final slice trains on 2013--2022 and tests on 2023. All model components are re-estimated separately in each slice, including stock--ETF relatedness, Top-1 / Top-3 ETF selection, and any network-style neighbor structure.
+
+\subsection{AlphaMark and Cost Settings}
+
+The updated AlphaMark runs use four quantile slices:
+\[
+\texttt{qr\_100},\quad
+\texttt{qr\_75},\quad
+\texttt{qr\_50},\quad
+\texttt{qr\_25},
+\]
+and the standard sizing conventions \texttt{betsize\_cap250k} and \texttt{betsize\_mktcap\_lag}. These AlphaMark outputs are interpreted as gross performance diagnostics.
+
+Separately, we run a turnover-based tradability review at 10, 20, and 50 basis points. Throughout the report, 20 bps is the central cost case because it is conservative enough to be meaningful while still allowing differences across strategies to remain visible.
+
+\subsection{Representative Low-Turnover Hyperparameters}
+
+Table~\ref{tab:appendix-centralcase} records the representative low-turnover settings for the central 20 bps case. These are the configurations used when comparing the final three ETF-conditioned strategies against the optimized baseline benchmark on a net basis.
+
+\begin{table}[h]
+\centering
+\caption{Representative low-turnover settings for the central 20 bps comparison.}
+\label{tab:appendix-centralcase}
+\begin{tabular}{lccccc}
+\toprule
+Strategy & Bet size & $q$ & Hold days & Threshold & Net 20 bps Sharpe \\
+\midrule
+Optimized baseline & mktcap lag & 1.0 & 10 & 0.2 & 0.373 \\
+Consensus majority ETF & mktcap lag & 1.0 & 20 & 0.3 & 0.417 \\
+Regime & equal & 1.0 & 20 & 0.1 & 0.404 \\
+Blend top3 & equal & 1.0 & 20 & 0.1 & 0.373 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Best Gross Quantile Slices}
+
+The strongest gross AlphaMark slices differ across strategies. The consensus strategy is strongest at \texttt{qr\_75} with market-cap sizing (gross Sharpe about 0.558), while the blend and regime strategies are strongest around \texttt{qr\_50} with equal-weight or cap250k-style sizing (gross Sharpe about 0.598 and 0.525, respectively). This is why the main text reports both gross AlphaMark outcomes and separate net-of-cost results: the gross-optimal slice is not always the net-optimal execution policy.

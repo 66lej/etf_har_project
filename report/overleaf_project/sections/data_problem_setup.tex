@@ -1,0 +1,45 @@
+\section{Data and Problem Setup}
+\label{sec:data}
+
+\subsection{Universe and Sample Window}
+
+Our stock panel spans 1990-01-17 to 2023-12-29, while the ETF feature panel spans 1993-02-01 to 2023-12-29. The final evaluation window reported in this project is 2006-01-03 to 2023-12-29. We focus on this range for three reasons. First, it provides a sufficiently mature ETF feature history. Second, it supports the 10-year rolling training design while still delivering a long out-of-sample period. Third, it aligns cleanly with the final AlphaMark evaluation pipeline used in the project.
+
+The unit of observation is a stock-day pair. For each day, we merge stock-level return and size information with the corresponding ETF return panel. The working panel is therefore a multi-asset daily panel in which the stock-level target and stock-level predictors are augmented by ETF-linked information available on the same date.
+
+\subsection{Prediction Target}
+
+For each stock $i$ and day $t$, the target is the next-day return $r_{i,t+1}$. The baseline predictors are HAR-style stock-specific return summaries over daily, weekly, and monthly horizons:
+\[
+\hat r^{\mathrm{base}}_{i,t+1}
+=
+\beta_0
++ \beta_d r^{(d)}_{i,t}
++ \beta_w r^{(w)}_{i,t}
++ \beta_m r^{(m)}_{i,t}.
+\]
+
+The forecasting task is therefore deliberately simple in form: predict one-step-ahead stock returns with a linear model, then test whether the resulting ranking signal is economically useful once mapped into a portfolio. This separation between a relatively simple predictive layer and a more careful execution layer is intentional. It allows us to ask whether the ETF-linked information itself adds value, rather than whether performance is driven by a highly flexible forecasting architecture.
+
+\subsection{ETF-Linked Inputs}
+
+The ETF side of the panel is used in three conceptually different ways over the course of the project:
+\begin{itemize}[leftmargin=1.4em]
+  \item as a large raw feature block in the initial baseline+ETF specification,
+  \item as a source of stock-specific low-dimensional ETF summaries such as Top-1 and Top-3 related ETFs,
+  \item and as the basis for an ETF-induced stock similarity structure used in the network-style specification.
+\end{itemize}
+
+This progression is central to the empirical design. The raw ETF specification asks what happens when ETF information is added directly. The later specifications ask whether the same information is more useful once it is summarized at the stock level and introduced through narrower signal channels.
+
+\subsection{Rolling Universe}
+
+We do not require a stock to be present with full data over the full historical panel. Instead, we use a dynamic universe: within each train-test window, a stock is included if the relevant features and target are sufficiently available inside that local window. This rolling-universe design is important because it enlarges the usable sample and avoids restricting the analysis to a narrow set of long-lived names.
+
+The rolling universe is also model-specific. The baseline model requires only the stock HAR features and the target. The raw ETF and network-related models require a broader set of aligned stock and ETF inputs. As a result, the number of eligible stocks can differ across model classes even within the same calendar window. This reflects the model-specific data requirements rather than a flaw in the setup.
+
+\subsection{Why Economic Significance Matters}
+
+Our early forecasting results delivered negative out-of-sample $R^2$ across several specifications. Rather than treating mean squared error as the final objective, we evaluate whether a signal remains useful once mapped into a portfolio. Accordingly, the report emphasizes AlphaMark outputs, PnL-based diagnostics, turnover, and cost-adjusted Sharpe ratios.
+
+This choice is not only practical, but conceptual. In settings where incremental predictive content is limited, a model can look poor under conventional forecasting loss metrics and still contain usable cross-sectional ranking information. The object of interest is therefore the economic usefulness of the signal, not only the statistical goodness-of-fit of the regression.
